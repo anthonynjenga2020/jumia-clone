@@ -138,15 +138,39 @@
                                 text-white
                                 px-0.5
                                 rounded-full">0</span>
+                                <div class="min-w-[40px]">
+                                    <Icon
+                                        name="ph:shopping-cart-simple-light"
+                                        size="33"
+                                        :color="isCartHover ? '#FF4646' : ''"></Icon>
+                                </div>
                     </button>
                 </NuxtLink>
-
+                <button
+                    @click="useStore.isMenuOverlay = true"
+                    class="md:hidden block rounded-full p-1.5 -mt-[4px] hover:bg-gray-200">
+                    
+                    <Icon name="radix-icons:hamburger-menu" size="33"></Icon>
+                </button>
             </div>  
         </div>
      </div>
-</template>
+
+     <Loading v-if="userStore.isLoading" />
+
+     <div class="lg:pt-[150px] md:pt-[130px] pt-[80px]"></div>
+     <slot />
+
+     <Footer v-if="!userStore.isLoading"/>
+</template>        
+                
+
+   
 
 <script setup>
+import { useUserStore } from '~/stores/user';
+const userStore = useUserStore()
+
 let isAccountMenu = ref(false)
 let isCartHover = ref(false)
 let isSearching = ref(false)
